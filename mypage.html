@@ -8,6 +8,25 @@
     <link rel="stylesheet" href="./css/common.css" />
     <link rel="stylesheet" href="./css/mypage.css" />
     <link rel="stylesheet" href="./css/index.css" />
+
+    <script>
+      let xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "./json/userInfo.json", true);
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          let storage = JSON.parse(this.response);
+          const cols = ["id", "password", "name", "address", "tel"];
+          for (let i = 0; i < cols.length; i++) {
+            let div = document.getElementById(cols[i]);
+            let span = document.createElement("span");
+            span.innerHTML = " " + storage.data[i];
+            div.appendChild(span);
+          }
+          document.querySelector("tbody").appendChild(tr);
+        }
+      };
+      xhttp.send();
+    </script>
   </head>
   <body>
     <ul class="navbar">
@@ -29,7 +48,7 @@
     <div class="flexColumnCenter black border10">
       <br />
       <h2>회원 정보 확인</h2>
-      <div id="id">아이디 :</div>
+      <div id="id" clsss="flexRowCenter">아이디 :</div>
       <div id="password">비밀번호 :</div>
       <div id="name">이름 :</div>
       <div id="address">주소 :</div>
